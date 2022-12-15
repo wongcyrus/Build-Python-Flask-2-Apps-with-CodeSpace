@@ -24,7 +24,8 @@
     "vscode": {
       "extensions": [
         "ms-python.python",
-        "samuelcolvin.jinjahtml"
+        "samuelcolvin.jinjahtml",
+        "monosans.djlint"
       ]
     }
   },
