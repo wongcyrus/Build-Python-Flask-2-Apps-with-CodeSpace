@@ -1,8 +1,7 @@
 {
   "name": "Python 3 & PostgreSQL",
   "dockerComposeFile": "docker-compose.yml",
-  "service": "app",
-  // "workspaceFolder": "/workspace",
+  "service": "app", 
   "hostRequirements": {
     "cpus": 2
   },
