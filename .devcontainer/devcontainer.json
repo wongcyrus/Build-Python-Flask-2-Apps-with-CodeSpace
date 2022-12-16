@@ -14,7 +14,7 @@
   "portsAttributes": {
     "5000": {
       "label": "Flask Apps",
-      "protocol": "https",
+      "protocol": "http",
       "onAutoForward": "openPreview"
     },
     "5050": {
