@@ -4,7 +4,8 @@ from flask_login import login_required, current_user, login_user, logout_user
 from werkzeug.urls import url_parse
 
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm
+from app.email import send_password_reset_email
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm, ResetPasswordForm
 from app.models import User, Post
 
 
@@ -34,8 +35,8 @@ def index():
         'index', page=posts.next_num) if posts.next_num else None
     prev_url = url_for(
         'index', page=posts.prev_num) if posts.prev_num else None
-    return render_template("index.html.j2", title="Home", form=form, \
-        posts=posts.items, next_url=next_url, prev_url=prev_url)
+    return render_template("index.html.j2", title="Home", form=form,
+                           posts=posts.items, next_url=next_url, prev_url=prev_url)
 
 
 @app.route('/explore')
@@ -91,6 +92,36 @@ def register():
         flash('Congraduations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html.j2', title="Register", form=form)
+
+
+@app.route("/reset_password_request", methods=['GET', 'POST'])
+def reset_password_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = ResetPasswordRequestForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            send_password_reset_email(user)
+        flash('Check your email for the instructions to reset password.')
+        return redirect(url_for('login'))
+    return render_template('reset_password_request.html.j2', title="Reset Password", form=form)
+
+
+@app.route("/reset_password/<token>", methods=['GET', 'POST'])
+def reset_password(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    user = User.verify_reset_password_token(token)
+    if user is None:
+        return redirect(url_for('index'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        db.session.commit()
+        flash('Your password has been reset.')
+        return redirect(url_for('login'))
+    return render_template('reset_password.html.j2', title="Reset Password", form=form)
 
 
 @app.route('/user/<username>')
