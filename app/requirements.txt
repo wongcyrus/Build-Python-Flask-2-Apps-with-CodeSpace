@@ -47,9 +47,6 @@ html-tag-names==0.1.2
 html-void-elements==0.1.0
 idna==3.4
 importlib-metadata==5.1.0
-ipykernel==6.19.2
-ipython==8.7.0
-ipython-genutils==0.2.0
 isoduration==20.11.0
 itsdangerous==2.1.2
 jedi==0.18.2
@@ -62,8 +59,6 @@ jsonschema==4.17.3
 kiwisolver==1.4.4
 Mako==1.2.4
 MarkupSafe==2.1.1
-matplotlib==3.6.2
-matplotlib-inline==0.1.6
 mistune==2.0.4
 nest-asyncio==1.5.6
 packaging==22.0
@@ -95,9 +90,6 @@ regex==2022.10.31
 requests==2.28.1
 rfc3339-validator==0.1.4
 rfc3986-validator==0.1.1
-scikit-learn==1.2.0
-scipy==1.9.3
-seaborn==0.12.1
 Send2Trash==1.8.0
 six==1.16.0
 smmap==5.0.0
@@ -124,3 +116,4 @@ websocket-client==1.4.2
 Werkzeug==2.2.2
 WTForms==3.0.1
 zipp==3.11.0
+python-dotenv==0.21.0
